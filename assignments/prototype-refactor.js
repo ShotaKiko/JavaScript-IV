@@ -6,75 +6,45 @@ Prototype Refactor
 
 2. Your goal is to refactor all of this code to use ES6 Classes. The console.log() statements should still return what is expected of them.
 
-*/function GameObject(attr){
+*/
+
+class GameObject {
+  constructor(attr){
     this.createdAt = new Date;
     this.dimensions = attr.dimensions;
     this.dimensions.length = attr.dimensions.length;
     this.dimensions.width = attr.dimensions.width;
     this.dimensions.height = attr.dimensions.height;
-    // (These represent the character's size in the video game)
-    
-  
   }
-
-    GameObject.prototype.destroy = function(attr){// prototype method -> returns the string: 'Object was removed from the game.'
+    destroy(){
       return `${this.name} was removed from the game.`;
     }
+}
 
-  function CharacterStats(childattr){ 
+class CharacterStats extends GameObject {
+  constructor(childattr){
+    super(childattr)
     this.healthPoints = (`${childattr.healthPoints} HP(more than what Todd Howard has after Fallout 76 o.O)`);
     this.name = childattr.name;
-    GameObject.call(this, childattr);
-      this.isCharacterStats = childattr.isCharacterStats;
   }
- 
-  CharacterStats.prototype = Object.create(GameObject.prototype)
-  CharacterStats.prototype.takeDamage = function (childattr){
-    return `${this.name} took damage.`;
-  }
+    takeDamage(){
+      return `${this.name} took damage.`;
+    }
+}
 
-   // prototype method -> returns the string '<object name> took damage.'
-  //should inherit destroy() from GameObject's prototype
-
- 
-
-
-  function Humanoid(grandchildattr){ /*(Having an appearance or character resembling that of a human.) ===*/
+class Humanoid extends CharacterStats { 
+  constructor(grandchildattr){
+    super(grandchildattr)
     this.team = grandchildattr.team;
     this.weapons = grandchildattr.weapons;
     this.language = grandchildattr.language
-    CharacterStats.call(this, grandchildattr); 
-    this.isHumanoid = grandchildattr.isHumanoid; 
   }
-  Humanoid.prototype = Object.create(CharacterStats.prototype)
-  Humanoid.prototype.greet = function(grandchildattr){
-    return `${this.name} offers a greeting in ${this.language}.`
-  } 
-  // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-    // should inherit destroy() from GameObject through CharacterStats
-    // should inherit takeDamage() from CharacterStats
+    greet(){
+      return `${this.name} offers a greeting in ${this.language}.`
+    } 
+} 
 
-
-
-
-
-  // function Humanoid(grandchildattr) {
-  //   CharacterStats.call(this, grandchildattr); 
-  //   this.isHumanoid = grandchildattr.isHumanoid; 
-  
-
-
-
-  
-  
-
-
-
-
-
-
-
-  /*
+/*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.

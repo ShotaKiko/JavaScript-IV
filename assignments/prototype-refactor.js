@@ -61,7 +61,7 @@ Prototype Refactor
   // function Humanoid(grandchildattr) {
   //   CharacterStats.call(this, grandchildattr); 
   //   this.isHumanoid = grandchildattr.isHumanoid; 
-  // }?????wWHY DOES THIS NEED TO BE NESTED IN THE FIRST HUMNAOID FUNCTION???
+  
 
 
 
